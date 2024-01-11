@@ -1,0 +1,11 @@
+{
+    "schedules": [
+        {
+            "id": "1",
+            "title": "Assignment",
+            "description": "Now is the winter of our discontent Made glorious summer by this sun of York; And all the clouds",
+            "subject": "to get job",
+            "schedule": "Daily at 12:00"
+        }
+    ]
+}
