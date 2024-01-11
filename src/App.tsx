@@ -15,12 +15,22 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [data, setData] = useState([]);
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [resultSearchQuery, setResultSearchQuery] = useState(data);
+
   useEffect(() => {
     fetch("http://localhost:3030/schedules")
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
+
+  useEffect(() => {
+    fetch(`http://localhost:3030/schedules?title_like=${searchQuery}`)
+      .then((response) => response.json())
+      .then((data) => setResultSearchQuery(data))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, [searchQuery]);
   return (
     <div className="min-h-screen w-screen p-4 bg-gray-100">
       <div className="flex justify-between mt-4 mb-8">
@@ -29,6 +39,8 @@ function App() {
             type="text"
             className="relative h-10 w-full rounded-sm border border-gray-300 bg-white pl-4 pr-10 outline-none"
             placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
           <span className=" absolute right-2">
             <IoSearch size={20} color="#391E5A" />
@@ -45,7 +57,7 @@ function App() {
           ADD
         </button>
         {showForm && (
-          <div className="absolute right-20  top-16">
+          <div className="absolute right-20 top-16">
             <AddForm />
           </div>
         )}
@@ -62,8 +74,8 @@ function App() {
               <th className="text-left text-gray-600 py-3 px-6">Actions</th>
             </tr>
           </thead>
-          {data &&
-            data.map((d: ScheduleProps) => (
+          {resultSearchQuery &&
+            resultSearchQuery.map((d: ScheduleProps) => (
               <tbody key={d.id} className="bg-white ">
                 <tr>
                   <td className="py-3 px-6 border-b border-gray-200 truncate">
