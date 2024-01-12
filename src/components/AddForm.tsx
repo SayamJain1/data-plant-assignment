@@ -14,7 +14,7 @@ type AddFormProps = {
   id: number | null;
   showForm: boolean;
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
-  initialData?: ScheduleProps | null; // Add this prop
+  initialData?: ScheduleProps | null;
 };
 export default function AddForm({
   id,
@@ -30,7 +30,6 @@ export default function AddForm({
     repeat: "",
     time: "",
   });
-
   const [checkedDay, setCheckedDay] = useState("");
 
   const handleClick = (day: string) => {
@@ -38,7 +37,6 @@ export default function AddForm({
       ...fields,
       repeat: day,
     });
-
     setCheckedDay(day);
   };
 
@@ -56,7 +54,6 @@ export default function AddForm({
       ? `http://localhost:3030/schedules/${id}`
       : "http://localhost:3030/schedules";
     const method = id ? "PATCH" : "POST";
-
     fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
@@ -82,7 +79,7 @@ export default function AddForm({
 
   return (
     <div className=" w-[400px] bg-white p-3 rounded-md shadow-lg border border-gray-100">
-      <h1 className="mb-7 text-xl font-medium">Add Schedule</h1>
+      <h2 className="mb-7 text-xl font-medium">Add Schedule</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="flex justify-between">
           <label>Title</label>
@@ -128,7 +125,7 @@ export default function AddForm({
             <option disabled></option>
             <option value="weekly">Weekly</option>
             <option value="monthly">Monthly</option>
-            <option value="Daily">Daily</option>
+            <option value="daily">Daily</option>
           </select>
         </div>
 
@@ -195,10 +192,10 @@ export default function AddForm({
             type="submit"
             className="bg-[#391E5A] text-white rounded-md py-2 px-4"
           >
-            Done
+            {id ? "Update" : "Done"}
           </button>
           <button
-            onClick={() => {}}
+            onClick={() => setShowForm(false)}
             className="bg-gray-200 rounded-md py-2 px-4"
           >
             Cancle
