@@ -1,32 +1,48 @@
 {
-    "schedules": [
-        {
-            "id": "1",
-            "title": "Assignment",
-            "description": "Now is the winter of our discontent Made glorious summer by this sun of York; And all the clouds",
-            "subject": "to get job",
-            "schedule": "Daily at 12:00"
-        },
-        {
-            "id": "2",
-            "title": "Winter",
-            "description": "Made glorious summer by this sun of York; And all the clouds Now is the winter of our discontent",
-            "subject": "it is very cold",
-            "schedule": "Monday at 02:00"
-        },
-        {
-            "id": "3",
-            "title": "Summer",
-            "description": "All the clouds Now is the Made glorious summer by this sun of York; And winter of our discontent",
-            "subject": "some gibberish",
-            "schedule": "Daily at 02:00"
-        },
-        {
-            "id": "4",
-            "title": "Assignment",
-            "description": "Now is the winter of our discontent Made glorious summer by this sun of York; And all the clouds",
-            "subject": "to get job",
-            "schedule": "Daily at 12:00"
-        }
-    ]
+  "schedules": [
+    {
+      "id": 4,
+      "title": "Assignment 4",
+      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit...",
+      "subject": "to get job",
+      "schedule": "Daily at 12:00",
+      "frequency": "Daily"
+    },
+    {
+      "title": "Rendering In next",
+      "description": "Now is the winter of our discontent\nMade glorious summer by this sun of York;\nAnd all the clouds that",
+      "subject": "letters within the input",
+      "frequency": "weekly",
+      "repeat": "Thursday",
+      "time": "12AM",
+      "id": 1705044143955
+    },
+    {
+      "title": "sdytyu",
+      "description": "asdfasdf",
+      "subject": "asddfasd",
+      "frequency": "monthly",
+      "repeat": "second_saturday",
+      "time": "2AM",
+      "id": 1705045045380
+    },
+    {
+      "title": "qwerttt",
+      "description": "qwerqwer",
+      "subject": "qwerqwerqwer",
+      "frequency": "monthly",
+      "repeat": "",
+      "time": "12AM",
+      "id": 1705045059300
+    },
+    {
+      "title": "Mounting barded",
+      "description": "all the clouds that loured upon our house\nIn the deep bosom of the ocean buried.\nNow are our brows bound with victorious wreaths;\nOur bruised arms hung up for monuments;",
+      "subject": "hung up for monuments",
+      "frequency": "monthly",
+      "repeat": "second_saturday",
+      "time": "12AM",
+      "id": 1705045101266
+    }
+  ]
 }

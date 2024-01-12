@@ -2,18 +2,20 @@ import { IoSearch } from "react-icons/io5";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import AddForm from "./components/AddForm";
 import { useEffect, useState } from "react";
-
-type ScheduleProps = {
-  id: string;
-  title: string;
-  description: string;
-  subject: string;
-  schedule: string;
-};
+import SingleScheduel from "./components/SingleScheduel";
+import { Routes, Route, Link } from "react-router-dom";
+import { FaRegEye } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { MdModeEdit } from "react-icons/md";
+import { ScheduleProps } from "./types";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
+  const [showSingleScheduel, setShowSingleScheduel] = useState(false);
   const [data, setData] = useState([]);
+  const [editingSchedule, setEditingSchedule] = useState<ScheduleProps | null>(
+    null
+  );
 
   const [searchQuery, setSearchQuery] = useState("");
   const [resultSearchQuery, setResultSearchQuery] = useState(data);
@@ -31,6 +33,38 @@ function App() {
       .then((data) => setResultSearchQuery(data))
       .catch((error) => console.error("Error fetching data:", error));
   }, [searchQuery]);
+
+  const handleDelete = (id: number) => {
+    fetch(`http://localHost:3030/schedules/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setData(data));
+    window.location.reload();
+  };
+
+  // const handleEdit = (id: number) => {
+  //   fetch(`http://localHost:3030/schedules/${id}`, {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({}),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => setData(data));
+  //   // window.location.reload();
+  // };
+  const handleEdit = (id: number) => {
+    fetch(`http://localhost:3030/schedules/${id}`)
+      .then((res) => res.json())
+      .then((data) => setEditingSchedule(data));
+    setShowForm(true);
+  };
+
   return (
     <div className="min-h-screen w-screen p-4 bg-gray-100">
       <div className="flex justify-between mt-4 mb-8">
@@ -58,7 +92,12 @@ function App() {
         </button>
         {showForm && (
           <div className="absolute right-20 top-16">
-            <AddForm />
+            <AddForm
+              id={editingSchedule ? editingSchedule.id : null}
+              showForm
+              setShowForm={setShowForm}
+              initialData={editingSchedule}
+            />
           </div>
         )}
       </div>
@@ -88,14 +127,40 @@ function App() {
                     {d.subject}
                   </td>
                   <td className="py-3 px-6 border-b border-gray-200 truncate">
-                    {d.schedule}
+                    {d.repeat} {d.time}
                   </td>
-                  <td className="py-3 px-6 border-b border-gray-200 truncate">
-                    Active
+                  <td className="py-3 px-6 border-b border-gray-200 truncate ">
+                    <button onClick={() => setShowSingleScheduel(true)}>
+                      <Link to={`/singleScheduel/${d.id}`}>
+                        <FaRegEye className=" hover:opacity-60" />
+                      </Link>
+                    </button>
+
+                    <button
+                      className="mx-2 relative"
+                      onClick={() => handleEdit(d.id)}
+                    >
+                      <MdModeEdit className=" hover:opacity-60" />
+                    </button>
+                    <button onClick={() => handleDelete(d.id)}>
+                      <RiDeleteBin6Line className=" hover:opacity-60" />
+                    </button>
                   </td>
                 </tr>
               </tbody>
             ))}
+          {showSingleScheduel && (
+            <Routes>
+              <Route
+                path="/singleScheduel/:id"
+                element={
+                  <SingleScheduel
+                    setShowSingleScheduel={setShowSingleScheduel}
+                  />
+                }
+              />
+            </Routes>
+          )}
         </table>
       </div>
     </div>
